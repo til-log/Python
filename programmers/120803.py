@@ -13,3 +13,8 @@
 def solution(num1, num2):
     answer = num1 - num2
     return answer
+
+
+# ========
+# 120802와 같이 람다 활용 가능
+solution = lambda num1, num2 : num1-num2
