@@ -14,3 +14,12 @@
 def solution(num1, num2):
     answer = num1 * num2
     return answer
+
+
+# =======
+# * 연산자 없이 반복 구조 덧셈으로 곱셈 제작
+def solution(num1, num2):
+    answer = 0
+    for _ in range(num2):
+        answer += num1
+    return answer
