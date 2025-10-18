@@ -21,3 +21,18 @@ def solution(num1, num2):
     return answer
 
 
+# ======
+# 120804와 같이 다른 시각으로 살펴봄<- 곱셈을 더하기 반복구조로 계산 추가함
+# 나눗셈도 반복적인 뺄셈이므로...
+def solution(num1, num2):
+    while num1 >= num2:
+        num1-=num2
+    return num1
+# ex)14,3
+# 14->11
+# 11->8
+# 8->5
+# 5->2
+# num1=2 형태
+
+
