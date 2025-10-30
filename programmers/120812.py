@@ -32,9 +32,56 @@ def solution(array):
         max_index = counts.index(max_count)
         return check[max_index]
 
-  # ======
+# ======
 from scipy import stats
-# 해당 방식으로도 작업할 수 있도록 작성해둘 예정 
-# 및 다른 방식 확인 필요
-# https://school.programmers.co.kr/learn/courses/30/lessons/120812/solution_groups?language=python3
+# 해당 방식으로도 작업할 수 있도록 작성해둘 예정
 
+
+# 작업 완료 +
+
+
+# 추가 방법 1=================
+from scipy import stats
+
+def solution(array):
+    # scipy.stats의 mode 함수를 이용해 최빈값과 등장 횟수 계산
+    # keepdims로 배열 형태 반환할 수 있게 명시해야 함 True 안써두면 에러 발생
+    mode_result = stats.mode(array, keepdims=True)
+    
+    # 최빈값
+    mode_value = mode_result.mode[0]
+    # 최빈값 등장 횟수
+    mode_count = mode_result.count[0]
+    
+    # 고유값 리스트 내 몇 번 등장했는가 확인
+    counts = [array.count(i) for i in set(array)]
+    # 전체 원소 중 가장 많이 등장한 횟수
+    max_count = max(counts)
+    
+    # 최빈값이 여러 개라면 -1 출력
+    if counts.count(max_count) >= 2:
+        return -1
+    else:
+        return mode_value
+
+# 추가 방법 2=================
+# https://docs.python.org/ko/3/library/collections.html#collections.Counter
+from collections import Counter
+
+def solution(array):
+    # 입력으로 주어진 정수 배열에서 각 원소 등장 빈도 계산
+    # array 예시  [1,2,3,4,5,6,5,5,5]라면
+    # Counter({5: 4, 1: 1, 2: 1, 3: 1, 4: 1, 6: 1})
+    counter = Counter(array)
+
+    # 등장 빈도가 높은 순서대로 (값, 빈도) 쌍 정렬해 상위 2개 추출
+    # [(5, 4), (1, 1)]
+    most_common = counter.most_common(2)
+
+    # 최빈값이 1개만 있는 경우
+    # 배열에 서로 다른 값이 하나만 존재하거나
+    # 가장 많이 등장한 값의 빈도가 두 번째로 많이 등장한 값의 빈도보다 클 때
+    if len(most_common) == 1 or most_common[0][1] > most_common[1][1]:
+        return most_common[0][0]
+    else:
+        return -1
